@@ -24,11 +24,7 @@ def battery_is_ok(temperature, soc, charge_rate):
         bool: True if all parameters (temperature, SoC, and charge rate)
         are within their acceptable ranges; False otherwise.
     """
-    return (
-        is_within_range(temperature, 0, 45) and
-        is_within_range(soc, 20, 80) and
-        charge_rate <= 0.8
-    )
+    return (is_within_range(temperature, 0, 45) and is_within_range(soc, 20, 80) and charge_rate <= 0.8) # noqa
 
 
 if __name__ == "__main__":
