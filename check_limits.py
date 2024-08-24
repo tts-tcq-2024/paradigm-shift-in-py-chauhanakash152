@@ -1,3 +1,20 @@
+# Constants defining the acceptable ranges for battery parameters
+
+TEMP_MIN = 0
+"""Minimum acceptable temperature for the battery in degrees Celsius."""
+
+TEMP_MAX = 45
+"""Maximum acceptable temperature for the battery in degrees Celsius."""
+
+SOC_MIN = 20
+"""Minimum acceptable state of charge (SoC) for the battery in percentage."""
+
+SOC_MAX = 80
+"""Maximum acceptable state of charge (SoC) for the battery in percentage."""
+
+CHARGE_RATE_MAX = 0.8
+"""Maximum acceptable charge rate for the battery (0.8 or less)."""
+
 def is_within_range(value, min_value, max_value):
     """Check if a value is within the specified range.
     Args:
@@ -24,7 +41,7 @@ def battery_is_ok(temperature, soc, charge_rate):
         bool: True if all parameters (temperature, SoC, and charge rate)
         are within their acceptable ranges; False otherwise.
     """
-    return (is_within_range(temperature, 0, 45) and is_within_range(soc, 20, 80) and charge_rate <= 0.8) # noqa
+    return (is_within_range(temperature, TEMP_MIN, TEMP_MAX) and is_within_range(soc, SOC_MIN, SOC_MAX) and charge_rate <= CHARGE_RATE_MAX) # noqa
 
 
 if __name__ == "__main__":
