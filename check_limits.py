@@ -15,6 +15,7 @@ SOC_MAX = 80
 CHARGE_RATE_MAX = 0.8
 """Maximum acceptable charge rate for the battery (0.8 or less)."""
 
+
 def is_within_range(value, min_value, max_value):
     """Check if a value is within the specified range.
     Args:
