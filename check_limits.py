@@ -47,7 +47,7 @@ if __name__ == "__main__":
     # Invalid scenarios
     # Temperature below minimum
     assert (battery_is_ok(-1, 70, 0.7) is False)
-    # SoC below minimum   
+    # SoC below minimum 
     assert (battery_is_ok(25, 19, 0.7) is False)
     # Charge rate above maximum
     assert (battery_is_ok(25, 70, 0.9) is False)
