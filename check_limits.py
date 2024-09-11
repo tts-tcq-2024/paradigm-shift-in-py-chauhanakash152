@@ -1,15 +1,15 @@
 # Constants defining the acceptable ranges for battery parameters
 
-TEMP_MIN = 0
+TEMP_MIN_CELSIUS = 0
 """Minimum acceptable temperature for the battery in degrees Celsius."""
 
-TEMP_MAX = 45
+TEMP_MAX_CELSIUS = 45
 """Maximum acceptable temperature for the battery in degrees Celsius."""
 
-SOC_MIN = 20
+SOC_MIN_PERCENTAGE = 20
 """Minimum acceptable state of charge (SoC) for the battery in percentage."""
 
-SOC_MAX = 80
+SOC_MAX_PERCENTAGE = 80
 """Maximum acceptable state of charge (SoC) for the battery in percentage."""
 
 CHARGE_RATE_MAX = 0.8
@@ -17,7 +17,8 @@ CHARGE_RATE_MAX = 0.8
 
 
 def is_within_range(value, min_value, max_value, parameter):
-    """Check if a value is within the specified range, and print if it is too high or low.
+    """Check if a value is within the specified range, and print if it is too
+        high or low.
 
     Args:
         value (float): The value of the parameter to check.
@@ -27,9 +28,11 @@ def is_within_range(value, min_value, max_value, parameter):
 
     Returns:
         bool: True if the value is within the range [min_value, max_value];
-              False otherwise. Also prints a message if the value is too high or low.
+              False otherwise. Also prints a message if the value is too
+              high or low.
     """
     return parameter_to_low(value, min_value, parameter) and parameter_to_high(value, max_value, parameter)
+
 
 def print_to_console(message):
     """Print a message to the console.
@@ -38,6 +41,7 @@ def print_to_console(message):
         message (str): The message to be printed.
     """
     print(message)
+
 
 def parameter_to_high(value, max_value, parameter):
     """Check if the parameter exceeds its maximum value.
@@ -56,6 +60,7 @@ def parameter_to_high(value, max_value, parameter):
         return False
     return True
 
+
 def parameter_to_low(value, min_value, parameter):
     """Check if the parameter is below its minimum value.
 
@@ -73,11 +78,14 @@ def parameter_to_low(value, min_value, parameter):
         return False
     return True
 
+
 def battery_is_ok(temperature, soc, charge_rate):
-    """Check if the battery parameters are within their acceptable ranges.
+    """Check if the battery parameters are within their acceptable
+    ranges.
 
     Args:
-        temperature (float): The temperature of the battery, in degrees Celsius.
+        temperature (float): The temperature of the battery, in degrees
+        Celsius.
         soc (float): The state of charge (SoC) percentage of the battery.
         charge_rate (float): The charge rate of the battery.
 
@@ -85,7 +93,7 @@ def battery_is_ok(temperature, soc, charge_rate):
         bool: True if all parameters (temperature, SoC, and charge rate)
         are within their acceptable ranges; False otherwise.
     """
-    return (is_within_range(temperature, TEMP_MIN, TEMP_MAX, "Temperature") and is_within_range(soc, SOC_MIN, SOC_MAX, "SOC") and parameter_to_high(charge_rate, CHARGE_RATE_MAX, "Charge rate")) # noqa
+    return (is_within_range(temperature, TEMP_MIN_CELSIUS, TEMP_MAX_CELSIUS, "Temperature") and is_within_range(soc, SOC_MIN_PERCENTAGE, SOC_MAX_PERCENTAGE, "SOC") and parameter_to_high(charge_rate, CHARGE_RATE_MAX, "Charge rate")) # noqa
 
 
 if __name__ == "__main__":
