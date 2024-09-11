@@ -16,6 +16,24 @@ CHARGE_RATE_MAX = 0.8
 """Maximum acceptable charge rate for the battery (0.8 or less)."""
 
 
+def is_within_range(value, min_value, max_value, parameter):
+    """Check if a value is within the specified range, and print if it is too
+        high or low.
+
+    Args:
+        value (float): The value of the parameter to check.
+        min_value (float): The minimum acceptable value (inclusive).
+        max_value (float): The maximum acceptable value (inclusive).
+        parameter (str): The name of the parameter being checked.
+
+    Returns:
+        bool: True if the value is within the range [min_value, max_value];
+              False otherwise. Also prints a message if the value is too
+              high or low.
+    """
+    return parameter_to_low(value, min_value, parameter) and parameter_to_high(value, max_value, parameter) # noqa
+
+
 def print_to_console(message):
     """Print a message to the console.
 
@@ -75,9 +93,5 @@ def battery_is_ok(temperature, soc, charge_rate):
         bool: True if all parameters (temperature, SoC, and charge rate)
         are within their acceptable ranges; False otherwise.
     """
-    return ( parameter_to_low(temperature, TEMP_MIN_CELSIUS, "Temperature")
-            and parameter_to_high(temperature,TEMP_MAX_CELSIUS, "Temperature")
-            and parameter_to_low(soc, SOC_MIN_PERCENTAGE, "SOC")
-            and parameter_to_high(soc, SOC_MAX_PERCENTAGE, "SOC")
-            and parameter_to_high(charge_rate,CHARGE_RATE_MAX, "Charge rate"))
+    return (is_within_range(temperature, TEMP_MIN_CELSIUS, TEMP_MAX_CELSIUS, "Temperature") and is_within_range(soc, SOC_MIN_PERCENTAGE, SOC_MAX_PERCENTAGE, "SOC") and parameter_to_high(charge_rate, CHARGE_RATE_MAX, "Charge rate")) # noqa
 
