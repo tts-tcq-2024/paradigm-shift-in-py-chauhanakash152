@@ -31,7 +31,7 @@ def is_within_range(value, min_value, max_value, parameter):
               False otherwise. Also prints a message if the value is too
               high or low.
     """
-    return parameter_to_low(value, min_value, parameter) and parameter_to_high(value, max_value, parameter)
+    return parameter_to_low(value, min_value, parameter) and parameter_to_high(value, max_value, parameter) # noqa
 
 
 def print_to_console(message):
