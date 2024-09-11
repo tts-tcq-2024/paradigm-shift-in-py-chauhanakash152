@@ -16,19 +16,62 @@ CHARGE_RATE_MAX = 0.8
 """Maximum acceptable charge rate for the battery (0.8 or less)."""
 
 
-def is_within_range(value, min_value, max_value):
-    """Check if a value is within the specified range.
+def is_within_range(value, min_value, max_value, parameter):
+    """Check if a value is within the specified range, and print if it is too high or low.
+
     Args:
-        value (float): The value to check.
+        value (float): The value of the parameter to check.
         min_value (float): The minimum acceptable value (inclusive).
         max_value (float): The maximum acceptable value (inclusive).
+        parameter (str): The name of the parameter being checked.
 
     Returns:
         bool: True if the value is within the range [min_value, max_value];
-        False otherwise.
+              False otherwise. Also prints a message if the value is too high or low.
     """
-    return min_value <= value <= max_value
+    return parameter_to_low(value, min_value, parameter) and parameter_to_high(value, max_value, parameter)
 
+def print_to_console(message):
+    """Print a message to the console.
+
+    Args:
+        message (str): The message to be printed.
+    """
+    print(message)
+
+def parameter_to_high(value, max_value, parameter):
+    """Check if the parameter exceeds its maximum value.
+
+    Args:
+        value (float): The value of the parameter to check.
+        max_value (float): The maximum acceptable value.
+        parameter (str): The name of the parameter being checked.
+
+    Returns:
+        bool: True if the value is within the acceptable range;
+              False if it is too high. Also prints a message if too high.
+    """
+    if value > max_value:
+        print_to_console(f"{parameter} '{value}' is too high")
+        return False
+    return True
+
+def parameter_to_low(value, min_value, parameter):
+    """Check if the parameter is below its minimum value.
+
+    Args:
+        value (float): The value of the parameter to check.
+        min_value (float): The minimum acceptable value.
+        parameter (str): The name of the parameter being checked.
+
+    Returns:
+        bool: True if the value is within the acceptable range;
+              False if it is too low. Also prints a message if too low.
+    """
+    if value < min_value:
+        print_to_console(f"{parameter} '{value}' is too low")
+        return False
+    return True
 
 def battery_is_ok(temperature, soc, charge_rate):
     """Check if the battery parameters are within their acceptable ranges.
@@ -42,7 +85,7 @@ def battery_is_ok(temperature, soc, charge_rate):
         bool: True if all parameters (temperature, SoC, and charge rate)
         are within their acceptable ranges; False otherwise.
     """
-    return (is_within_range(temperature, TEMP_MIN, TEMP_MAX) and is_within_range(soc, SOC_MIN, SOC_MAX) and charge_rate <= CHARGE_RATE_MAX) # noqa
+    return (is_within_range(temperature, TEMP_MIN, TEMP_MAX, "Temperature") and is_within_range(soc, SOC_MIN, SOC_MAX, "SOC") and parameter_to_high(charge_rate, CHARGE_RATE_MAX, "Charge rate")) # noqa
 
 
 if __name__ == "__main__":
