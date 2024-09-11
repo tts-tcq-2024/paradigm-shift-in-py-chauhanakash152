@@ -94,4 +94,3 @@ def battery_is_ok(temperature, soc, charge_rate):
         are within their acceptable ranges; False otherwise.
     """
     return (is_within_range(temperature, TEMP_MIN_CELSIUS, TEMP_MAX_CELSIUS, "Temperature") and is_within_range(soc, SOC_MIN_PERCENTAGE, SOC_MAX_PERCENTAGE, "SOC") and parameter_to_high(charge_rate, CHARGE_RATE_MAX, "Charge rate")) # noqa
-
