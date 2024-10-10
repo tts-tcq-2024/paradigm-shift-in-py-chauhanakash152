@@ -12,9 +12,9 @@ SOC_WARNING_PERCENTAGE = 5
 CHARGE_RATE_WARNING_PERCENTAGE = 5
 
 # Warning tolerance
-temp_warning_tolerance = (temp_warning_percentage / 100) * temp_max_celsius
-soc_warning_tolerance = (soc_warning_percentage / 100) * soc_max_percentage
-charge_rate_warning_tolerance = (charge_rate_warning_percentage / 100) * charge_rate_max
+temp_warning_tolerance = (TEMP_WARNING_PERCENTAGE / 100) * TEMP_MAX_CELSIUS
+soc_warning_tolerance = (SOC_WARNING_PERCENTAGE / 100) * SOC_MAX_PERCENTAGE
+charge_rate_warning_tolerance = (CHARGE_RATE_WARNING_PERCENTAGE / 100) * CHARGE_RATE_MAX
 
 # Flags to enable/disable warnings for specific parameters
 WARN_TEMP = True
