@@ -6,10 +6,15 @@ SOC_MIN_PERCENTAGE = 20
 SOC_MAX_PERCENTAGE = 80
 CHARGE_RATE_MAX = 0.8
 
-# Warning tolerance as 5% of the upper limit
-TEMP_WARNING_TOLERANCE = 0.05 * TEMP_MAX_CELSIUS
-SOC_WARNING_TOLERANCE = 0.05 * SOC_MAX_PERCENTAGE
-CHARGE_RATE_WARNING_TOLERANCE = 0.05 * CHARGE_RATE_MAX
+# constants defining the percetage tolerance
+TEMP_WARNING_PERCENTAGE = 5
+SOC_WARNING_PERCENTAGE = 5
+CHARGE_RATE_WARNING_PERCENTAGE = 5
+
+# Warning tolerance
+temp_warning_tolerance = (temp_warning_percentage / 100) * temp_max_celsius
+soc_warning_tolerance = (soc_warning_percentage / 100) * soc_max_percentage
+charge_rate_warning_tolerance = (charge_rate_warning_percentage / 100) * charge_rate_max
 
 # Flags to enable/disable warnings for specific parameters
 WARN_TEMP = True
@@ -81,12 +86,12 @@ def battery_is_ok(temperature, soc, charge_rate):
     return (
         is_within_range(
             temperature, TEMP_MIN_CELSIUS, TEMP_MAX_CELSIUS, "Temperature", 
-            TEMP_WARNING_TOLERANCE, WARN_TEMP
+            temp_warning_tolerance, WARN_TEMP
         ) and is_within_range(
             soc, SOC_MIN_PERCENTAGE, SOC_MAX_PERCENTAGE, "SOC", 
-            SOC_WARNING_TOLERANCE, WARN_SOC
+            soc_warning_tolerance, WARN_SOC
         ) and is_within_range(
             charge_rate, 0, CHARGE_RATE_MAX, "Charge rate", 
-            CHARGE_RATE_WARNING_TOLERANCE, WARN_CHARGE_RATE
+            charge_rate_warning_tolerance, WARN_CHARGE_RATE
         )
     )
